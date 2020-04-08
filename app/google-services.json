@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "377566046417",
+    "firebase_url": "https://pinster-6adce.firebaseio.com",
+    "project_id": "pinster-6adce",
+    "storage_bucket": "pinster-6adce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:377566046417:android:affb547d00e45eab017df0",
+        "android_client_info": {
+          "package_name": "dev.ahmdaeyz.pinster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "377566046417-1r35mfk9k0lunjc44cr3makg7973mvkm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.ahmdaeyz.pinster",
+            "certificate_hash": "5ce018725876dea1569caf8855b0db61092c6c3a"
+          }
+        },
+        {
+          "client_id": "377566046417-ah6tdihcd3gejurflls4ebs639k6o66d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd7rMJdLrFmbykt0Os68LKe05sdZbLRXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "377566046417-ah6tdihcd3gejurflls4ebs639k6o66d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
