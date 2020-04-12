@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/signInFragment">
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="dev.ahmdaeyz.pinster.ui.launcher.signin.SignInFragment"
+        android:label="sign_in_fragment"
+        tools:layout="@layout/sign_in_fragment">
+        <action
+            android:id="@+id/action_signInFragment_to_prefferedCategoriesFragment"
+            app:destination="@id/prefferedCategoriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prefferedCategoriesFragment"
+        android:name="dev.ahmdaeyz.pinster.ui.launcher.prefrerredcategories.PrefferedCategoriesFragment"
+        android:label="preffered_categories_fragment"
+        tools:layout="@layout/preffered_categories_fragment">
+        <action
+            android:id="@+id/action_prefferedCategoriesFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="dev.ahmdaeyz.pinster.ui.home.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment" />
+</navigation>
