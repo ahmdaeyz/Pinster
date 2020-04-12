@@ -1,12 +1,12 @@
 package dev.ahmdaeyz.pinster.data.network
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dev.ahmdaeyz.pinster.data.network.response.NewsArticles
 import dev.ahmdaeyz.pinster.data.network.response.NewsSources
-import kotlinx.coroutines.Deferred
+import io.reactivex.rxjava3.core.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -17,22 +17,22 @@ const val API_KEY = "870777245ed840d891785e9182078a7f"
 interface NewsAPIApiService {
     @GET("top-headlines")
     fun getTopHeadlinesWithSourcesAsync(
-        @Query("sources") sources: String
-    ): Deferred<NewsArticles>
+            @Query("sources") sources: String
+    ): Observable<NewsArticles>
 
     @GET("top-headlines")
     fun getTopHeadlinesWithCountryAndCategoryAsync(
-        @Query("country") countryCode: String,
-        @Query("category") category: String
-    ): Deferred<NewsArticles>
+            @Query("country") countryCode: String,
+            @Query("category") category: String
+    ): Observable<NewsArticles>
 
     @GET("sources")
 
     fun getSourcesAsync(
-        @Query("category") category: String,
-        @Query("language") languageCode: String = "en",
-        @Query("country") countryCode: String = "us"
-    ): Deferred<NewsSources>
+            @Query("category") category: String,
+            @Query("language") languageCode: String = "en",
+            @Query("country") countryCode: String = "us"
+    ): Observable<NewsSources>
 
     companion object {
         operator fun invoke(
@@ -56,10 +56,10 @@ interface NewsAPIApiService {
                 .addInterceptor(connectivityInterceptor)
                 .build()
             return Retrofit
-                .Builder()
-                .client(okHttpClient)
-                .baseUrl(BASE_URL)
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                    .Builder()
+                    .client(okHttpClient)
+                    .baseUrl(BASE_URL)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(NewsAPIApiService::class.java)
