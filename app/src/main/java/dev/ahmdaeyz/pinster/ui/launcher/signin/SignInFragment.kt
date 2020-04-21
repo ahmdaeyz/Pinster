@@ -13,26 +13,23 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
 import dev.ahmdaeyz.pinster.R
-import dev.ahmdaeyz.pinster.data.authentication.FirebaseAuthService
 import dev.ahmdaeyz.pinster.domain.common.exceptions.CanNotSignInException
 import kotlinx.android.synthetic.main.sign_in_fragment.*
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 
-class SignInFragment : Fragment() {
-    private lateinit var viewModelFactory: SignInViewModelFactory
+class SignInFragment : Fragment(), KodeinAware {
+    override val kodein: Kodein by closestKodein()
+    private val viewModelFactory by instance<SignInViewModelFactory>()
+    private val gso by instance<GoogleSignInOptions>()
     private lateinit var viewModel: SignInViewModel
     private lateinit var googleSignInClient: GoogleSignInClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val firebaseAuthService = FirebaseAuthService(this.context!!, firebaseAuth)
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestProfile()
-                .build()
         googleSignInClient = GoogleSignIn.getClient(this.activity as Activity, gso)
-        viewModelFactory = SignInViewModelFactory(firebaseAuthService)
         viewModel = ViewModelProvider(this, viewModelFactory).get(SignInViewModel::class.java)
     }
 
