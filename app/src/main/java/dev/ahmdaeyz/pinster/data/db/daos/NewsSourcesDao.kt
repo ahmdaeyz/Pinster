@@ -14,6 +14,7 @@ interface NewsSourcesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSources(vararg sources: Source): Completable
 
-    @Query("SELECT * FROM user_sources WHERE category = :category")
-    fun getUserSources(category: String?): Single<List<Source>>
+    @Query("SELECT * FROM user_sources")
+    fun getUserSources(): Single<List<Source>>
 }
+

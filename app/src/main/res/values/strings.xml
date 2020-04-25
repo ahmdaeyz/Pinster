@@ -14,4 +14,21 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="welcome_user">Welcome %s,</string>
+    <string name="choose_your_interests">Choose your Interests</string>
+    <string name="get_started">Get Started</string>
+    <string-array name="categories_names">
+        <item>Art</item>
+        <item>Artificial Intelligence</item>
+        <item>Automobile</item>
+        <item>Environment</item>
+        <item>Education</item>
+        <item>Fashion</item>
+        <item>Finance</item>
+        <item>Food</item>
+        <item>Movie</item>
+        <item>Sport</item>
+        <item>Travel</item>
+        <item>Technology</item>
+    </string-array>
 </resources>

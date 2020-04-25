@@ -1,10 +1,12 @@
 package dev.ahmdaeyz.pinster.data.network
 
+import dev.ahmdaeyz.pinster.BuildConfig
 import dev.ahmdaeyz.pinster.data.network.response.NewsArticles
 import dev.ahmdaeyz.pinster.data.network.response.NewsSources
-import io.reactivex.rxjava3.core.Observable
+import io.reactivex.Single
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,24 +18,24 @@ const val API_KEY = "870777245ed840d891785e9182078a7f"
 
 interface NewsAPIApiService {
     @GET("top-headlines")
-    fun getTopHeadlinesWithSourcesAsync(
+    fun getTopHeadlinesWithSources(
             @Query("sources") sources: String
-    ): Observable<NewsArticles>
+    ): Single<NewsArticles>
 
     @GET("top-headlines")
-    fun getTopHeadlinesWithCountryAndCategoryAsync(
+    fun getTopHeadlinesWithCountryAndCategory(
             @Query("country") countryCode: String,
             @Query("category") category: String
-    ): Observable<NewsArticles>
+    ): Single<NewsArticles>
 
     @GET("sources")
-
-    fun getSourcesAsync(
+    fun getSources(
             @Query("category") category: String,
             @Query("language") languageCode: String = "en",
             @Query("country") countryCode: String = "us"
-    ): Observable<NewsSources>
-
+    ): Single<NewsSources>
+//    @GET("sources")
+//    fun getAllSources(): Single<NewsSources>
     companion object {
         operator fun invoke(
             connectivityInterceptor: ConnectivityInterceptor
@@ -50,9 +52,17 @@ interface NewsAPIApiService {
                     .build()
                 return@Interceptor chain.proceed(request)
             }
+            val logging = HttpLoggingInterceptor()
+                    .apply {
+                        level = if (BuildConfig.DEBUG)
+                            HttpLoggingInterceptor.Level.BODY
+                        else
+                            HttpLoggingInterceptor.Level.NONE
+                    }
             val okHttpClient = OkHttpClient
                 .Builder()
-                .addInterceptor(requestInterceptor)
+                .addInterceptor(logging)
+                    .addInterceptor(requestInterceptor)
                 .addInterceptor(connectivityInterceptor)
                 .build()
             return Retrofit
