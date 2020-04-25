@@ -16,21 +16,21 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import dev.ahmdaeyz.pinster.R
 import dev.ahmdaeyz.pinster.domain.common.exceptions.CanNotSignInException
 import kotlinx.android.synthetic.main.sign_in_fragment.*
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.closestKodein
-import org.kodein.di.generic.instance
+import org.koin.android.ext.android.inject
 
-class SignInFragment : Fragment(), KodeinAware {
-    override val kodein: Kodein by closestKodein()
-    private val viewModelFactory by instance<SignInViewModelFactory>()
-    private val gso by instance<GoogleSignInOptions>()
+
+class SignInFragment : Fragment() {
+    private val viewModelFactory: SignInViewModelFactory by inject()
     private lateinit var viewModel: SignInViewModel
     private lateinit var googleSignInClient: GoogleSignInClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestProfile()
+                .build()
         googleSignInClient = GoogleSignIn.getClient(this.activity as Activity, gso)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(SignInViewModel::class.java)
+        viewModel = ViewModelProvider(this@SignInFragment, viewModelFactory).get(SignInViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -66,7 +66,7 @@ class SignInFragment : Fragment(), KodeinAware {
         })
         viewModel.navigatedToPreferredCategories.observe(viewLifecycleOwner, Observer {
             it?.let {
-                findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToPrefferedCategoriesFragment())
+                findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToPreferredCategoriesFragment())
             }
         })
     }

@@ -1,9 +1,13 @@
 package dev.ahmdaeyz.pinster.domain.common.enums
 
-enum class NewsCategory(val value: String) {
+
+
+enum class NewsAPICategory(val value: String) {
     GENERAL("general"),
     HEALTH("health"),
     SCIENCE("science"),
     SPORTS("sports"),
-    TECHNOLOGY("technology")
+    TECHNOLOGY("technology"),
+    BUSINESS("business"),
+    ENTERTAINMENT("entertainment")
 }
