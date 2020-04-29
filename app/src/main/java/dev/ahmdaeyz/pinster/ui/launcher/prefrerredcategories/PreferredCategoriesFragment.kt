@@ -1,5 +1,6 @@
 package dev.ahmdaeyz.pinster.ui.launcher.prefrerredcategories
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -60,6 +61,15 @@ class PreferredCategoriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         get_started_button.setOnClickListener {
             viewModel.tappedGetStarted()
+            chosePreferredCategories()
+        }
+    }
+
+    private fun chosePreferredCategories() {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        with(sharedPref.edit()) {
+            putBoolean(getString(R.string.has_chose_categories), true)
+            commit()
         }
     }
 }
