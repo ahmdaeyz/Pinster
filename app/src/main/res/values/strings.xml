@@ -31,4 +31,5 @@
         <item>Travel</item>
         <item>Technology</item>
     </string-array>
+    <string name="has_chose_categories">HAS_CHOSE_CATEGORIES</string>
 </resources>
